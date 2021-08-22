@@ -89,9 +89,12 @@ def make_windows2(list_of_dict, file_path, audioName):
                         sentence += dic['text']
                     need_to_end += window_size
                     # tmp_dict = {'': i, 'audio_filepath': file_path + str(countPath) + '_' + audioName, 'text': sentence}
-                    tmp_dict = {'filepath': file_path + str(countPath) + '_' + audioName, 'text': sentence}
+                    # tmp_dict = {'filepath': file_path + str(countPath) + '_' + audioName, 'text': sentence}
+
+                    tmp_dict = {'filepath': file_path + str(countPath) + '_' + audioName, 'text': str(sentence)}
                     countPath += window_size
-                    ans.append(tmp_dict)
+                    if len(sentence) != 0:
+                        ans.append(tmp_dict)
                     sentence = ''
 
                 if sentence == '':  # start of a sentence and have a start time
@@ -192,7 +195,7 @@ def makeCSV(folderPath, fileName, savePath1, file1):
             dict_writer.writerows(to_model)
 
 
-mypath = 'Signals'
+mypath = 'C:\Kalif\Ariel University\Computer_Science\C\sms C\speech2text\icsi dataset\Signals'
 makeDire('audios2')
 
 for folder in listdir(mypath):
@@ -200,13 +203,13 @@ for folder in listdir(mypath):
     # print(wavFolder)
     savePath = 'audios2\\' + folder
     file = listdir(wavFolder)[0]  # get the long audio wav
-    makeDire(savePath)  # make a dir to save all the split waves
-    # print(wavFolder)
-    # print(file)
-    # print(savePath)
-    # print(folder)
-    split_wav = wavSpliter.SplitWavAudioMubin(wavFolder, file, savePath)
-    split_wav.multiple_split(min_per_split=10)
+
+
+    # makeDire(savePath)  # make a dir to save all the split waves
+    # split_wav = wavSpliter.SplitWavAudioMubin(wavFolder, file, savePath) # split audios
+    # split_wav.multiple_split(min_per_split=10) # split audios
+
+
     makeCSV('Words', folder, savePath+'\\', file)
 
 
